@@ -9,7 +9,6 @@ namespace Company.Function
     public class TimeTriggeredService
     {
         [FunctionName("TimeTriggeredService")] //Cron job is running each minute
-        [return: ServiceBus("save_tracking_queue", Connection = "ServiceBusConnection")]
         public void Run(
             [TimerTrigger("0 * * * * *")]TimerInfo myTimer,
             [CosmosDB(
@@ -18,7 +17,7 @@ namespace Company.Function
                 ConnectionStringSetting = "CosmosConnectionString",
                 SqlQuery = "SELECT * FROM c")]
                 IEnumerable<TrackingDTO> trackingDTOs,
-            [ServiceBus("request_package_status")] ICollector<TrackingDTO> queue,
+            [ServiceBus("request_package_status_queue")] ICollector<TrackingDTO> queue,
              ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
