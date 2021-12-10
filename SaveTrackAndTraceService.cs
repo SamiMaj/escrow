@@ -16,7 +16,7 @@ namespace Company.Function
                 ConnectionStringSetting = "CosmosConnectionString")]out dynamic document,
             ILogger log)
         {
-            log.LogInformation($"C# ServiceBus queue trigger function processed message: {trackingDTO.trackAndTrace}");
+            log.LogInformation($"C# Saving the received tracking dto to the db: {trackingDTO.trackAndTrace}");
             trackingDTO.id = System.Guid.NewGuid().ToString();
             document = trackingDTO;
         }
