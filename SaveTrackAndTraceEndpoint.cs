@@ -14,14 +14,14 @@ namespace Company.Function
     {
         [FunctionName("SaveTrackAndTraceEndpoint")]
         [return: ServiceBus("save_tracking_queue", Connection = "ServiceBusConnection")]
-        public static async Task<String> Run(
+        public static async Task<TrackingDTO> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            string trackAndTrace = data?.trackAndTrace ?? "unknown";
-            return trackAndTrace;
+            TrackingDTO data = JsonConvert.DeserializeObject<TrackingDTO>(requestBody);
+
+            return data;
         }
     }
 }

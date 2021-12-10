@@ -8,9 +8,17 @@ namespace Company.Function
     public static class SaveTrackAndTraceService
     {
         [FunctionName("SaveTrackAndTraceService")]
-        public static void Run([ServiceBusTrigger("save_tracking_queue", Connection = "ServiceBusConnection")]string myQueueItem, ILogger log)
+        public static void Run(
+            [ServiceBusTrigger("save_tracking_queue", Connection = "ServiceBusConnection")]TrackingDTO trackingDTO, 
+            [CosmosDB(
+                databaseName: "escrow-db",
+                collectionName: "tracking_numbers",
+                ConnectionStringSetting = "CosmosConnectionString")]out dynamic document,
+            ILogger log)
         {
-            log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
+            log.LogInformation($"C# ServiceBus queue trigger function processed message: {trackingDTO.trackAndTrace}");
+            trackingDTO.id = System.Guid.NewGuid().ToString();
+            document = trackingDTO;
         }
     }
 }
