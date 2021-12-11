@@ -1,4 +1,4 @@
-name: Deploy to Azure
+name: Deploy track-and-trace-endpoint to Azure
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: EscrowFunctionApp
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './track-and-trace-endpoint'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'track-and-trace-endpoint'
 
 jobs:
   build:
