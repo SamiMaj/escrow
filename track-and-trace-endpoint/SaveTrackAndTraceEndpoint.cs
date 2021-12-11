@@ -18,6 +18,7 @@ namespace Company.Function
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
+            log.LogInformation("Individual deploy is working!!");
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             TrackingDTO data = JsonConvert.DeserializeObject<TrackingDTO>(requestBody);
 
